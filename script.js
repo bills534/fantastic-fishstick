@@ -1,14 +1,23 @@
 const apiURL = "https://jsonplaceholder.typicode.com/users";
 const responseList = document.querySelector("#response-list");
-const input = document.querySelector("input");
+const select = document.querySelector("select");
 const submitBtn = document.querySelector("#submit-btn");
+
+// Populate the drop-down list with options
+for (let i = 1; i <= 10; i++) {
+  const option = document.createElement("option");
+  option.value = i;
+  option.innerHTML = i;
+  select.appendChild(option);
+}
 
 // Handle the click of the submit button
 submitBtn.onclick = function() {
   // Clear the previous responses
-  responseList.innerHTML = "";
-  // Get the value from the input box
-  const userInput = input.value;
+  // responseList.innerHTML = "";
+  // Get the selected option from the drop-down list
+  const userInput = select.value;
+  console.log(userInput);
   // Set the headers
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -20,10 +29,12 @@ submitBtn.onclick = function() {
   })
     .then(response => {
       // Check for a successful response
+      console.log(response);
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
       return response.json();
+      
     })
     .then(data => {
       // Add the data to the page
