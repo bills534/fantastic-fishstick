@@ -9,8 +9,15 @@ submitBtn.onclick = function() {
   responseList.innerHTML = "";
   // Get the value from the input box
   const userInput = input.value;
+  // Set the headers
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("X-Custom-Header", "MyValue");
   // Fetch the data from the API
-  fetch(`${apiURL}/${userInput}`)
+  fetch(`${apiURL}/${userInput}`, {
+    method: "GET",
+    headers: headers
+  })
     .then(response => {
       // Check for a successful response
       if (!response.ok) {
