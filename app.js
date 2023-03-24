@@ -1,12 +1,26 @@
 var data; // variable to store the retrieved data
 
 function getData() {
-    // make a GET request to the API endpoint
-    $.get("https://jsonplaceholder.typicode.com/users", function(response) {
-        data = response;
-        displayData();
+    // set the headers you want to send to the API
+    var headers = {
+        "Authorization": "Bearer <your_access_token>",
+        "X-Custom-Header": "Custom Value"
+    };
+    // make a GET request to the API endpoint with the headers
+    $.ajax({
+        url: "https://example.com/api/data",
+        type: "GET",
+        headers: headers,
+        success: function(response) {
+            data = response;
+            displayData();
+        },
+        error: function(xhr, status, error) {
+            alert("Error retrieving data: " + error);
+        }
     });
 }
+
 
 function displayData() {
     // display the data on the screen
